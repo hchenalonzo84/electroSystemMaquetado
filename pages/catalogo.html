@@ -12,9 +12,11 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
 
     <!-- Estilos CSS -->
-    <link rel="stylesheet" href="css/styles.css">    
+    <link rel="stylesheet" href="/css/styles.css">    
+    <link rel="stylesheet" href="/css/catalogo.css">    
     <!-- Chart.js CDN -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 
 </head>
 <body>
@@ -26,15 +28,16 @@
             <li><a href="#"><i class="fas fa-chart-bar"></i>Menu</a></li>
             <li><a href="#"><i class="fas fa-user"></i>Clientes</a></li>
             <li><a href="#"><i class="fas fa-box-open"></i>Productos</a></li>
-            <li><a href="#"><i class="fas fa-book"></i>Catálogo</a></li>
             <li><a href="/pages/home.html"><i class="fas fa-book"></i>Home</a></li>
+            <li><a href="/pages/catalogo.html"><i class="fas fa-book"></i>Catálogo</a></li>
+            <li><a href="/pages/catalogoView.html"><i class="fas fa-book"></i>CatálogoView</a></li>            
         </ul>
     </div>
    
 
     <!-- Header -->
     <header class="main-header d-flex align-items-center justify-content-between">
-        <a href="index.html" class="logo text-decoration-none">ElectroTech</a>
+        <a href="/pages/home.html" class="logo text-decoration-none">ElectroTech</a>
 
         <div class="search-container d-flex align-items-center">
             <input type="text" class="form-control me-2 search-input" placeholder="Buscar...">
@@ -42,27 +45,199 @@
                 <i class="fas fa-search"></i>
             </button>
         </div>
-
+        
         <div class="header-icons d-flex align-items-center gap-3">
             <button class="btn btn-light notification-btn">
                 <i class="far fa-bell"></i>
             </button>
-            <img style="object-fit: cover;" src="./resources/Iconos/User Not foud  green 559638.png" alt="Avatar" class="avatar">
+            <img style="object-fit: cover;" src="../resources/Iconos/User Not foud  green 559638.png" alt="Avatar" class="avatar">
         </div>
     </header>
-     
+    
     <!-- Contenedor principal -->
     <div class="container-layout mt-4">
         <div class="menu-btn-container d-flex justify-content-start align-items-center">
-            <button class="menu-btn" id="menuBtn">→</button>
+            <button class="menu-btn" id="menuBtn"><i class="fas fa-angle-right"></i></button>
         </div>
- 
+        <!-- contenedor principal de catalogo de productos -->
+        <div class="contenedor-main-catalogo container">
+            
+            <section class="opciones-desplegables-catalogo">
+            <!-- Opciones desplegables -->
+            <div class="dropdown-catalogo">
+                <button class="dropdown-toggle">PC </button>
+                <ul class="submenu">
+                    <li>PC Gaming</li>
+                    <li>PC Office</li>
+                    <li>PC All-in-One</li>
+                </ul>
+            </div>
+            
+            <div class="dropdown-catalogo">
+                <button class="dropdown-toggle">Laptop </button>
+                <ul class="submenu">
+                    <li>Laptop Gamer</li>
+            <li>Ultrabook</li>
+            <li>Laptop Convertible</li>
+        </ul>
+    </div>
+    
+    <div class="dropdown-catalogo">
+        <button class="dropdown-toggle">Mobil </button>
+        <ul class="submenu">
+            <li>Smartphone</li>
+            <li>Tablet</li>
+            <li>Smartwatch</li>
+        </ul>
+    </div>
+    
+    <div class="dropdown-catalogo">
+        <button class="dropdown-toggle">Gaming </button>
+        <ul class="submenu">
+            <li>Consolas</li>
+            <li>Juegos</li>
+            <li>Accesorios</li>
+        </ul>
+    </div>
+    
+    <div class="dropdown-catalogo">
+        <button class="dropdown-toggle">Conexiones </button>
+        <ul class="submenu">
+            <li>Cables HDMI</li>
+            <li>Adaptadores</li>
+            <li>Conectores USB</li>
+        </ul>
+    </div>
+    
+    <div class="dropdown-catalogo">
+        <button class="dropdown-toggle">Accesorios </button>
+        <ul class="submenu">
+            <li>Audífonos</li>
+            <li>Teclados</li>
+            <li>Mouses</li>
+        </ul>
+    </div>
+    
+    <div class="dropdown-catalogo">
+        <button class="dropdown-toggle">Software </button>
+        <ul class="submenu">
+            <li>Sistemas Operativos</li>
+            <li>Antivirus</li>
+            <li>Productividad</li>
+        </ul>
+    </div>
+</section>
+
+        
+            <!-- Sección de Categorías -->
+            <section class="section-categorias">
+                <div class="categorias-header">
+                    <h2>Categorías</h2>
+                    <a href="#" class="ver-todo-link">View All <i class="fas fa-arrow-right"></i></a>
+                </div>
+                <div class="categorias-contenido">
+                    <div class="categoria-item"><a href="/pages/catalogoView.html">
+                        <img src="/resources/laptop.png" alt="Laptop">
+                    </a>
+                        <p>Laptop</p>
+                    </div>
+                    <div class="categoria-item">
+                        <img src="/resources/pc.png" alt="PC">
+                        <p>PC</p>
+                    </div>
+                    <div class="categoria-item">
+                        <img src="/resources/mobiles.png" alt="Mobile">
+                        <p>Mobiles</p>
+                    </div>
+                    <div class="categoria-item">
+                        <img src="/resources/gaming.png" alt="Gaming">
+                        <p>Gaming</p>
+                    </div>
+                    <div class="categoria-item">
+                        <img src="/resources/smartWatch.png" alt="Smart Watch">
+                        <p>Smart Watch</p>
+                    </div>
+                    <div class="categoria-item">
+                        <img src="/resources/camara.png" alt="Camera">
+                        <p>Camara</p>
+                    </div>
+                    <div class="categoria-item">
+                        <img src="/resources/accesorios.png" alt="Accessories">
+                        <p>Accessories</p>
+                    </div>
+                </div>
+            </section>
+            
+        
+            <!-- Sección de Top Ventas -->
+<section class="section-topVentas">
+    <div class="topVentas-header">
+        <h2>Top de ventas</h2>
+        <a href="#" class="ver-todo-link">Ver todo <i class="fas fa-arrow-right"></i></a>
+    </div>
+
+    <div class="topVentas-contenido">
+        <div class="venta-item">
+            <div class="imagen-container">
+                <img src="/resources/topventas/ps4.png" alt="Play Station 4 Pro 1Tb">
+            </div>
+            <p>Play Station 4 Pro 1Tb</p>
+            <span>10% de descuento</span>
+        </div>
+
+        <div class="venta-item">
+            <div class="imagen-container">
+                <img src="/resources/topventas/airpods.png" alt="Airpods Pro 2">
+            </div>
+            <p>Airpods Pro 2</p>
+            <span>20% de descuento</span>
+        </div>
+
+        <div class="venta-item">
+            <div class="imagen-container">
+                <img src="/resources/topventas/macbook.png" alt="Apple MacBook Air 15'">
+            </div>
+            <p>Apple MacBook Air 15"</p>
+            <span>20% de descuento</span>
+        </div>
+
+        <div class="venta-item">
+            <div class="imagen-container">
+                <img src="/resources/topventas/samsungGalaxys23.png" alt="Samsung Galaxy S23">
+            </div>
+            <p>SAMSUNG Galaxy S23</p>
+            <span>30% de descuento</span>
+        </div>
+
+        <div class="venta-item">
+            <div class="imagen-container">
+                <img src="/resources/topventas/vr.png" alt="VR VisionTech X1">
+            </div>
+            <p>VR VisionTech X1</p>
+            <span>50% de descuento</span>
+        </div>
+
+        <div class="venta-item">
+            <div class="imagen-container">
+                <img src="/resources/topventas/vr2.png" alt="VR VisionTech X1">
+            </div>
+            <p>VR VisionTech X1</p>
+            <span>50% de descuento</span>
+        </div>
+    </div>
+</section>
+
+        </div>
+        
+        
     </div>
 
     <!-- Bootstrap JS (Popper y Bootstrap) -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
     <!-- Script personalizado -->
-    <script src="js/script.js"></script>
+    <script src="/js/script.js"></script>
+    <script src="/js/catalogo.js"></script>
+
 </body>
 </html>
