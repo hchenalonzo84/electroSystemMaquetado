@@ -478,8 +478,8 @@ input[type="radio"]:checked + .color-circulo {
     }
 }
 
-
 /* ----------- Estilo para el Carrito ----------- */
+
 /* Estilo del Botón de Carrito */
 .btn-carrito {
     position: relative;
@@ -569,6 +569,14 @@ input[type="radio"]:checked + .color-circulo {
     background-color: #c0392b;
 }
 
+/* Contenedor de acciones del carrito */
+.carrito-acciones {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    margin: 20px;
+}
+
 /* Botón Vaciar Carrito */
 .btn-vaciar-carrito {
     background-color: #3a9c73;
@@ -576,9 +584,8 @@ input[type="radio"]:checked + .color-circulo {
     border: none;
     padding: 10px;
     border-radius: 8px;
-    width: 100%;
+    width: 48%; /* Ajuste para que se alineen correctamente */
     cursor: pointer;
-    margin-top: 10px;
     transition: background-color 0.3s ease;
 }
 
@@ -586,26 +593,21 @@ input[type="radio"]:checked + .color-circulo {
     background-color: #2d7a59;
 }
 
-/* Estilo del botón Confirmar Compra */
+/* Estilo del Botón Confirmar Compra */
 .btn-confirmar {
     background-color: #4caf50;
     color: white;
     border: none;
-    padding: 12px 20px;
+    padding: 10px;
     border-radius: 8px;
+    width: 48%; /* Ajuste para que se alineen correctamente */
     cursor: pointer;
-    font-size: 16px;
-    width: 100%;
     transition: background-color 0.3s ease, transform 0.2s ease;
-    margin-top: 10px;
 }
+
 .btn-confirmar:hover {
     background-color: #45a049;
     transform: scale(1.05);
-}
-
-.btn-confirmar-compra:hover {
-    background-color: #2d7a59;
 }
 
 /* Responsividad para Dispositivos Pequeños */
@@ -623,19 +625,17 @@ input[type="radio"]:checked + .color-circulo {
         width: 80px;
         height: 80px;
     }
-}
 
-
-
-.btn-confirmar:hover {
-    background-color: #45a049;
-    transform: scale(1.05);
-}
-
-/* Estilo responsivo para el botón Confirmar Compra */
-@media (max-width: 768px) {
-    .btn-confirmar {
-        font-size: 14px;
-        padding: 10px 15px;
+    .carrito-acciones {
+        flex-direction: column;
     }
+
+    .btn-vaciar-carrito, .btn-confirmar {
+        width: 100%; /* Ajuste para pantallas pequeñas */
+    }
+}
+
+.centrar-imagen{
+    display: flex;
+    justify-content: center;
 }

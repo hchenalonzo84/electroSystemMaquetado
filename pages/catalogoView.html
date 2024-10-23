@@ -16,6 +16,11 @@
     <link rel="stylesheet" href="/css/catalogoView.css">    
     <!-- Chart.js CDN -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<!-- SweetAlert2 CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+
+<!-- SweetAlert2 JS -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 </head>
 <body>
@@ -81,23 +86,28 @@
                             <option value="fecha">Ver: Fecha</option>
                             <option value="relevancia">Ver: Relevancia</option>
                         </select>
-                        
+                    
                         <!-- Botón del carrito con contador -->
                         <button class="btn-carrito">
                             <i class="fas fa-shopping-bag"></i>
                             <span class="contador-carrito">0</span>
                         </button>
-                        
+                    
                         <!-- Contenedor del carrito -->
                         <div class="carrito-overlay">
                             <div class="carrito">
                                 <h3>Carrito de Compras</h3>
                                 <ul class="lista-carrito"></ul>
-                                <button class="btn-vaciar-carrito">Vaciar Carrito</button>
+                    
+                                <div class="carrito-acciones">
+                                    <button class="btn-vaciar-carrito">Vaciar Carrito</button>
+                                    <!-- <button class="btn-confirmar">Confirmar Compra</button> -->
+                                </div>
+                                
                             </div>
                         </div>
-
                     </div>
+                    
                 </div>
             </div>
             
@@ -150,7 +160,7 @@
                 <!-- Contenedor 4: Productos -->
                 <div class="grid-productos">
                     <div class="producto-tarjeta">
-                        <a href="/pages/catalogoDetalle.html">
+                        <a href="#">
                             <img src="/resources/laptop.png" alt="Producto">
                         </a>
                             <p class="producto-nombre">EX DISPLAY : MSI Pro 16</p>
@@ -158,12 +168,7 @@
                             <span class="prloducto-stock">In stock</span>
                     </div>
 
-                    <div class="producto-tarjeta">
-                        <img src="/resources/laptop.png" alt="Producto">
-                        <p class="producto-nombre">EX DISPLAY : MSI Pro 17</p>
-                        <p class="producto-precio">$599.00</p>
-                        <span class="producto-stock">In stock</span>
-                    </div>
+               
                 </div>
             </div>
         </div>
@@ -174,7 +179,29 @@
             </div>
         </div>
 
-
+        <!-- -------------modal para ver detalles del producto------- -->
+        <div class="modal fade" id="detalleProductoModal" tabindex="-1" aria-labelledby="modalTitulo" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="modalTitulo"></h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body d-flex">
+                  <div class="col-6 centrar-imagen">
+                    <img id="modalImagen" class="img-fluid" alt="Imagen del producto">
+                  </div>
+                  <div class="col-6 ps-4">
+                    <p id="modalPrecio" class="fs-4 text-success"></p>
+                    <p id="modalDescripcion"></p>
+                    <button class="btn btn-success mt-4" id="modalAgregarCarrito">Agregar al Carrito</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          
     </div>
 </div>
 

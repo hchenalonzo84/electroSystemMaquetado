@@ -1,0 +1,26 @@
+.table td img {
+    width: 80px;
+    height: auto;
+    border-radius: 8px;
+}
+
+.table th {
+    font-weight: bold;
+    color: #6c757d;
+}
+
+.resumen {
+    background-color: #e9ecef !important;
+}
+
+.text-success {
+    color: #28a745 !important;
+}
+
+.float-end {
+    float: right;
+}
+
+.btn {
+    margin-top: 10px;
+}

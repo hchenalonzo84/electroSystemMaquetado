@@ -50,7 +50,9 @@ const productos = [
 // Variables globales
 let productosPorPagina = 12;
 let paginaActual = 1;
-let carrito = JSON.parse(localStorage.getItem('carrito')) || []; // Recuperar carrito desde localStorage
+
+// Aseguramos que se recupere el carrito desde localStorage o inicializamos uno vacío.
+let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
 
 // Referencias a los elementos del DOM
 const gridProductos = document.querySelector('.grid-productos');
@@ -59,24 +61,78 @@ const contadorCarrito = document.querySelector('.contador-carrito');
 const carritoOverlay = document.querySelector('.carrito-overlay');
 const btnVaciarCarrito = document.querySelector('.btn-vaciar-carrito');
 const btnCarrito = document.querySelector('.btn-carrito');
-const btnConfirmar = document.createElement('button'); // Botón de confirmación
+const modalAgregarCarrito = document.getElementById('modalAgregarCarrito');
 
-// Función para renderizar los productos según la página
+// Verificar que el carrito no sea "undefined" ni se reinicie
+function cargarCarritoDesdeStorage() {
+    const carritoGuardado = JSON.parse(localStorage.getItem('carrito'));
+    if (carritoGuardado) {
+        carrito = carritoGuardado; // Asegurar que el carrito mantenga su estado
+        actualizarCarrito(); // Refrescar el contenido del carrito en la vista
+    }
+}
+
+// Asegurar que el contenedor de botones contenga ambos botones correctamente
+const contenedorAcciones = document.createElement('div');
+contenedorAcciones.classList.add('carrito-acciones');
+carritoOverlay.appendChild(contenedorAcciones);
+
+// Botón de Confirmación de Compra
+const btnConfirmar = document.createElement('button');
+btnConfirmar.textContent = 'Confirmar Compra';
+btnConfirmar.classList.add('btn-confirmar');
+btnConfirmar.addEventListener('click', confirmarCompra);
+contenedorAcciones.appendChild(btnConfirmar);
+
+// Mover el botón de vaciar carrito al contenedor correcto
+contenedorAcciones.appendChild(btnVaciarCarrito);
+// Función para abrir el modal con los detalles del producto
+function mostrarDetalleProducto(producto) {
+    const modalTitulo = document.getElementById('modalTitulo');
+    const modalImagen = document.getElementById('modalImagen');
+    const modalDescripcion = document.getElementById('modalDescripcion');
+    const modalPrecio = document.getElementById('modalPrecio');
+
+    productoSeleccionado = producto; // Guardamos el producto seleccionado
+
+    // Actualizamos el contenido del modal
+    modalTitulo.textContent = producto.nombre;
+    modalImagen.src = producto.imagen;
+    modalDescripcion.textContent = producto.descripcion || 'Sin descripción disponible';
+    modalPrecio.textContent = `Q${producto.precio.toFixed(2)}`;
+
+    // Abrimos el modal usando Bootstrap
+    const modal = new bootstrap.Modal(document.getElementById('detalleProductoModal'));
+    modal.show();
+}
+
+// Evento del botón para agregar al carrito desde el modal
+modalAgregarCarrito.addEventListener('click', () => {
+    agregarAlCarrito(productoSeleccionado.id); // Agregar producto al carrito
+
+    // Cerrar el modal
+    const modal = bootstrap.Modal.getInstance(document.getElementById('detalleProductoModal'));
+    modal.hide();
+
+    // Abrir el carrito de compras automáticamente
+    carritoOverlay.classList.add('open');
+});
+
+// Renderizar productos en la página actual
 function renderizarProductos(pagina) {
-    gridProductos.innerHTML = ''; // Limpiar productos anteriores
-
+    gridProductos.innerHTML = '';
     const inicio = (pagina - 1) * productosPorPagina;
     const productosPagina = productos.slice(inicio, inicio + productosPorPagina);
 
     productosPagina.forEach(producto => {
         const productoHTML = `
             <div class="producto-tarjeta">
-                <a href="/pages/catalogoDetalle.html">
+                <a href="#" class="detalle-producto" data-id="${producto.id}">
                     <img src="${producto.imagen}" alt="${producto.nombre}">
                 </a>
                 <p class="producto-nombre">${producto.nombre}</p>
                 <p class="producto-precio">$${producto.precio.toFixed(2)}</p>
-                <span class="producto-stock">${producto.stock ? 'In stock' : 'Out of stock'}</span>
+                <span class="producto-stock">${producto.stock ? 'En stock' : 'Agotado'}</span>
                 <button class="btn-agregar" data-id="${producto.id}">
                     <i class="fas fa-plus"></i>
                 </button>
@@ -85,98 +141,122 @@ function renderizarProductos(pagina) {
         gridProductos.innerHTML += productoHTML;
     });
 
-    // Agregar eventos a los botones de agregar al carrito
-    const botonesAgregar = document.querySelectorAll('.btn-agregar');
-    botonesAgregar.forEach(boton => {
-        boton.addEventListener('click', () => agregarAlCarrito(boton.dataset.id));
+    document.querySelectorAll('.detalle-producto').forEach(enlace => {
+        enlace.addEventListener('click', (event) => {
+            event.preventDefault();
+            const productoId = enlace.getAttribute('data-id');
+            const producto = productos.find(prod => prod.id == productoId);
+            mostrarDetalleProducto(producto);
+        });
+    });
+
+    document.querySelectorAll('.btn-agregar').forEach(boton => {
+        boton.addEventListener('click', (event) => {
+            event.stopPropagation();
+            agregarAlCarrito(boton.dataset.id);
+            carritoOverlay.classList.add('open');
+        });
     });
 
     actualizarConteoProductos(inicio + 1, Math.min(inicio + productosPorPagina, productos.length), productos.length);
 }
 
-// Función para agregar un producto al carrito
+// Agregar productos al carrito
 function agregarAlCarrito(id) {
-    const producto = productos.find(prod => prod.id == id);
-    carrito.push(producto);
-    actualizarCarrito();
+    const productoExistente = carrito.find(prod => prod.id == id);
+    if (!productoExistente) {
+        const producto = productos.find(prod => prod.id == id);
+        carrito.push(producto);
+        actualizarCarrito();
+    } else {
+        Swal.fire({
+            icon: 'info',
+            title: 'Producto ya en el carrito',
+            text: 'Este producto ya fue agregado.',
+            confirmButtonText: 'Aceptar',
+            timer: 3000,
+            showConfirmButton: false,
+            toast: true,
+            position: 'top-right',
+        });
+    }
 }
 
-// Función para actualizar el carrito y guardarlo en localStorage
+// Actualizar el carrito y sincronizar con localStorage
 function actualizarCarrito() {
     listaCarrito.innerHTML = '';
     carrito.forEach((producto, index) => {
         const itemCarrito = `
-            <li>
+            <li class="item-carrito">
                 <img src="${producto.imagen}" alt="${producto.nombre}" class="img-carrito">
-                ${producto.nombre} - $${producto.precio.toFixed(2)}
-                <button class="btn-quitar" data-index="${index}">Quitar</button>
+                <span>${producto.nombre} - Q${producto.precio.toFixed(2)}</span>
+                <div class="acciones-carrito">
+                    <button class="btn-quitar" data-index="${index}">Quitar</button>
+                </div>
             </li>
         `;
         listaCarrito.innerHTML += itemCarrito;
     });
 
-    contadorCarrito.textContent = carrito.length; // Actualizar contador
-
-    // Guardar en localStorage
+    contadorCarrito.textContent = carrito.length;
     localStorage.setItem('carrito', JSON.stringify(carrito));
 
-    // Agregar eventos a los botones de quitar
-    const botonesQuitar = document.querySelectorAll('.btn-quitar');
-    botonesQuitar.forEach(boton => {
-        boton.addEventListener('click', () => quitarDelCarrito(boton.dataset.index));
+    document.querySelectorAll('.btn-quitar').forEach(boton => {
+        boton.addEventListener('click', (event) => {
+            event.stopPropagation();
+            quitarDelCarrito(boton.dataset.index);
+        });
     });
 }
 
-// Función para quitar un producto del carrito
+// Quitar un producto del carrito
 function quitarDelCarrito(index) {
     carrito.splice(index, 1);
     actualizarCarrito();
 }
 
-// Función para vaciar el carrito
+// Vaciar el carrito
 btnVaciarCarrito.addEventListener('click', () => {
     carrito = [];
     actualizarCarrito();
 });
 
-// Mostrar/ocultar el carrito
+// Mostrar/ocultar carrito
 btnCarrito.addEventListener('click', () => {
     carritoOverlay.classList.toggle('open');
 });
 
-// Cerrar el carrito al hacer clic fuera de él
+// Cerrar carrito al hacer clic fuera de él
 document.addEventListener('click', (event) => {
     if (!carritoOverlay.contains(event.target) && !btnCarrito.contains(event.target)) {
         carritoOverlay.classList.remove('open');
     }
 });
 
-// Botón de confirmación de compra
-btnConfirmar.textContent = 'Confirmar Compra';
-btnConfirmar.classList.add('btn-confirmar');
-carritoOverlay.appendChild(btnConfirmar);
-
-btnConfirmar.addEventListener('click', () => {
+// Confirmar compra y redirigir
+function confirmarCompra() {
     if (carrito.length > 0) {
-        alert('Compra confirmada. Redirigiendo a la página de confirmación...');
-        // Redirigir a la página de confirmación (modificar según ruta)
-        window.location.href = "/pages/confirmacion.html";
+        localStorage.setItem('carritoConfirmacion', JSON.stringify(carrito));
+        window.location.href = "/pages/cotizacion.html";
     } else {
-        alert('El carrito está vacío.');
+        Swal.fire({
+            icon: 'warning',
+            title: 'Carrito vacío',
+            text: 'Agrega productos al carrito antes de confirmar.',
+            confirmButtonText: 'Aceptar',
+            timer: 3000,
+            showConfirmButton: false,
+            toast: true,
+            position: 'top-right',
+        });
     }
-});
-
-// Función para actualizar el conteo de productos
-function actualizarConteoProductos(inicio, fin, total) {
-    const infoProductos = document.querySelector('.informacion-productos p');
-    infoProductos.textContent = `Productos ${inicio}-${fin} de ${total}`;
 }
 
-// Función para configurar la paginación
+// Configurar paginación
 function configurarPaginacion() {
     const totalPaginas = Math.ceil(productos.length / productosPorPagina);
     const paginacionContainer = document.querySelector('.paginacion');
-    paginacionContainer.innerHTML = ''; // Limpiar paginación anterior
+    paginacionContainer.innerHTML = '';
 
     for (let i = 1; i <= totalPaginas; i++) {
         const boton = document.createElement('button');
@@ -192,9 +272,10 @@ function configurarPaginacion() {
     }
 }
 
-// Iniciar la vista con la primera página y la paginación
+// Inicializar vista
 document.addEventListener('DOMContentLoaded', () => {
+    cargarCarritoDesdeStorage(); // Aseguramos que el carrito se cargue correctamente
     renderizarProductos(paginaActual);
     configurarPaginacion();
-    actualizarCarrito(); // Cargar el carrito desde localStorage
+    actualizarCarrito();
 });
