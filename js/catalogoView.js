@@ -67,8 +67,8 @@ const modalAgregarCarrito = document.getElementById('modalAgregarCarrito');
 function cargarCarritoDesdeStorage() {
     const carritoGuardado = JSON.parse(localStorage.getItem('carrito'));
     if (carritoGuardado) {
-        carrito = carritoGuardado; // Asegurar que el carrito mantenga su estado
-        actualizarCarrito(); // Refrescar el contenido del carrito en la vista
+        carrito = carritoGuardado;
+        actualizarCarrito();
     }
 }
 
@@ -86,6 +86,7 @@ contenedorAcciones.appendChild(btnConfirmar);
 
 // Mover el botón de vaciar carrito al contenedor correcto
 contenedorAcciones.appendChild(btnVaciarCarrito);
+
 // Función para abrir el modal con los detalles del producto
 function mostrarDetalleProducto(producto) {
     const modalTitulo = document.getElementById('modalTitulo');
@@ -93,28 +94,24 @@ function mostrarDetalleProducto(producto) {
     const modalDescripcion = document.getElementById('modalDescripcion');
     const modalPrecio = document.getElementById('modalPrecio');
 
-    productoSeleccionado = producto; // Guardamos el producto seleccionado
+    productoSeleccionado = producto;
 
-    // Actualizamos el contenido del modal
     modalTitulo.textContent = producto.nombre;
     modalImagen.src = producto.imagen;
     modalDescripcion.textContent = producto.descripcion || 'Sin descripción disponible';
     modalPrecio.textContent = `Q${producto.precio.toFixed(2)}`;
 
-    // Abrimos el modal usando Bootstrap
     const modal = new bootstrap.Modal(document.getElementById('detalleProductoModal'));
     modal.show();
 }
 
 // Evento del botón para agregar al carrito desde el modal
 modalAgregarCarrito.addEventListener('click', () => {
-    agregarAlCarrito(productoSeleccionado.id); // Agregar producto al carrito
+    agregarAlCarrito(productoSeleccionado.id);
 
-    // Cerrar el modal
     const modal = bootstrap.Modal.getInstance(document.getElementById('detalleProductoModal'));
     modal.hide();
 
-    // Abrir el carrito de compras automáticamente
     carritoOverlay.classList.add('open');
 });
 
@@ -252,6 +249,14 @@ function confirmarCompra() {
     }
 }
 
+// Actualizar el conteo de productos
+function actualizarConteoProductos(inicio, fin, total) {
+    const infoProductos = document.querySelector('.informacion-productos p');
+    if (infoProductos) {
+        infoProductos.textContent = `Productos ${inicio}-${fin} de ${total}`;
+    }
+}
+
 // Configurar paginación
 function configurarPaginacion() {
     const totalPaginas = Math.ceil(productos.length / productosPorPagina);
@@ -263,18 +268,20 @@ function configurarPaginacion() {
         boton.classList.add('pagina-btn');
         if (i === paginaActual) boton.classList.add('active');
         boton.textContent = i;
+
         boton.addEventListener('click', () => {
             paginaActual = i;
             renderizarProductos(paginaActual);
             configurarPaginacion();
         });
+
         paginacionContainer.appendChild(boton);
     }
 }
 
 // Inicializar vista
 document.addEventListener('DOMContentLoaded', () => {
-    cargarCarritoDesdeStorage(); // Aseguramos que el carrito se cargue correctamente
+    cargarCarritoDesdeStorage();
     renderizarProductos(paginaActual);
     configurarPaginacion();
     actualizarCarrito();
