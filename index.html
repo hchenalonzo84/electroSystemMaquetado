@@ -30,23 +30,45 @@
 </head>
 <body>
 
-    <!-- Sidebar -->
-    <div class="sidebar" id="sidebar">
-        <button class="close-btn" id="closeBtn">←</button>
-        <ul>
-            <li><a href="/pages/catalogo.html"><i class="fas fa-book"></i>Catálogo</a></li>
-            <li><a href="#"><i class="fas fa-user"></i>Clientes</a></li>
-            <li><a href="#"><i class="fas fa-box-open"></i>Productos</a></li>
-            <li><a href="/pages/home.html"><i class="fas fa-book"></i>Home</a></li>
-            <!-- <li><a href=""><i class="fas fa-chart-bar"></i>Cotizacion</a></li> -->
-            
-        </ul>
-    </div>
+ 
+<!-- Sidebar -->
+<div class="sidebar" id="sidebar">
+    <button class="close-btn" id="closeBtn">←</button>
+    <ul>
+        <li><a href="/pages/home.html"><i class="fas fa-home"></i> Home</a></li>
+        <li><a href="/pages/catalogo.html"><i class="fas fa-book"></i> Cotización</a></li>
+        <li><a href="/pages/clientes.html"><i class="fas fa-user"></i> Clientes</a></li>
+        <li><a href="/pages/productos.html"><i class="fas fa-box-open"></i> Productos</a></li>
+
+        <!-- Item Inventarios con Submenú -->
+        <li class="d-block">
+            <a href="#submenuInventarios" data-bs-toggle="collapse" class="d-flex align-items-center ">
+                <span><i class="fas fa-chart-bar"></i> Inventarios</span>
+                <i class="fas fa-chevron-down"></i>
+            </a>
+            <ul class="collapse list-unstyled ps-3" id="submenuInventarios">
+                <li><a class="text-decoration-none" href="#">General</a></li>
+                <li><a class="text-decoration-none" href="#">Entradas</a></li>
+                <li><a class="text-decoration-none" href="#">Salidas</a></li>
+                <li><a class="text-decoration-none" href="#">Ajustes</a></li>
+                <li><a class="text-decoration-none" href="#">Reportes</a></li>
+            </ul>
+        </li>
+    </ul>
+</div>
+
+
+
+
+    
+    
+
+
    
 
     <!-- Header -->
     <header class="main-header d-flex align-items-center justify-content-between">
-        <a href="index.html" class="logo text-decoration-none">ElectroTech</a>
+        <a href="/pages/home.html" class="logo text-decoration-none">ElectroTech</a>
 
         <div class="search-container d-flex align-items-center">
             <input type="text" class="form-control me-2 search-input" placeholder="Buscar...">

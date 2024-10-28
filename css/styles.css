@@ -41,6 +41,7 @@ body {
     cursor: pointer;
 }
 
+/* Estilo al pasar el cursor */
 .sidebar ul li:hover {
     background-color: #e6f4e6;
     color: #3a9c73;
@@ -64,6 +65,35 @@ body {
     font-size: 22px;
 }
 
+/* Estilos para el submenú */
+.collapse {
+    padding-left: 30px;
+}
+
+.sidebar ul ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+/* Opciones del submenú alineadas verticalmente */
+.sidebar ul ul li {
+    padding: 10px 20px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.sidebar ul ul li a {
+    font-size: 16px;
+    color: #3a9c73;
+    text-decoration: none;
+}
+
+.sidebar ul ul li a:hover {
+    color: #2d7a59;
+    text-decoration: underline;
+}
+
+/* Botón de cierre */
 .close-btn {
     background: none;
     border: none;
@@ -96,6 +126,7 @@ body {
     color: #2d7a59;
 }
 
+/* Contenedor de búsqueda */
 .search-container {
     display: flex;
     align-items: center;
@@ -122,28 +153,10 @@ body {
     color: #3a9c73;
     font-size: 18px;
     transition: color 0.3s;
-    outline: none;
-    position: relative;
 }
 
 .search-btn:hover {
     color: black;
-    background: none;
-}
-
-.search-btn:active,
-.search-btn:focus,
-.search-btn::after,
-.search-btn::before {
-    background: none !important;
-    border: none;
-    outline: none;
-    box-shadow: none;
-}
-
-.search-btn:focus-visible {
-    background: none !important;
-    outline: none;
 }
 
 .header-icons {
@@ -201,3 +214,11 @@ body {
 .menu-btn.hidden {
     display: none;
 }
+
+
+
+
+
+
+
+
