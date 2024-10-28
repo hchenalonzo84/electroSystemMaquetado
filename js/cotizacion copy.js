@@ -102,7 +102,6 @@ document.addEventListener('DOMContentLoaded', () => {
             // Eliminar datos de carrito en todas las vistas
             localStorage.removeItem('carritoConfirmacion');
             localStorage.removeItem('carrito'); // Eliminar carrito de catalogoView
-
             // Redirigir a la página principal
             window.location.href = "/pages/home.html";
         });
