@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">*/    
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ElectroTech</title>
 
@@ -25,33 +25,30 @@
 </head>
 <body>
 
-     <!-- Sidebar -->
-<div class="sidebar" id="sidebar">
-    <button class="close-btn" id="closeBtn">←</button>
-    <ul>
-        <li><a href="/pages/home.html"><i class="fas fa-home"></i> Home</a></li>
-        <li><a href="/pages/catalogo.html"><i class="fas fa-book"></i> Cotización</a></li>
-        <li><a href="/pages/clientes.html"><i class="fas fa-user"></i> Clientes</a></li>
-        <li><a href="/pages/productos.html"><i class="fas fa-box-open"></i> Productos</a></li>
+    <!-- Sidebar -->
+    <div class="sidebar" id="sidebar">
+        <button class="close-btn" id="closeBtn">←</button>
+        <ul>
+            <li><a href="/pages/home.html"><i class="fas fa-home"></i> Home</a></li>
+            <li><a href="/pages/catalogo.html"><i class="fas fa-book"></i> Cotización</a></li>
+            <li><a href="/pages/clientes.html"><i class="fas fa-user"></i> Clientes</a></li>
+            <li><a href="/pages/productos.html"><i class="fas fa-box-open"></i> Productos</a></li>
 
-        <!-- Item Inventarios con Submenú -->
-        <li class="d-block">
-            <a href="#submenuInventarios" data-bs-toggle="collapse" class="d-flex align-items-center ">
-                <span><i class="fas fa-chart-bar"></i> Inventarios</span>
-                <i class="fas fa-chevron-down"></i>
-            </a>
-            <ul class="collapse list-unstyled ps-3" id="submenuInventarios">
-                <li><a class="text-decoration-none" href="#">General</a></li>
-                <li><a class="text-decoration-none" href="#">Entradas</a></li>
-                <li><a class="text-decoration-none" href="#">Salidas</a></li>
-                <li><a class="text-decoration-none" href="#">Ajustes</a></li>
-                <li><a class="text-decoration-none" href="#">Reportes</a></li>
-            </ul>
-        </li>
-    </ul>
-</div>
+            <!-- Item Inventarios con Submenú -->
+            <li class="d-block">
+                <a href="#submenuInventarios" data-bs-toggle="collapse" class="d-flex align-items-center">
+                    <span><i class="fas fa-chart-bar"></i> Inventarios</span>
+                    <i class="fas fa-chevron-down"></i>
+                </a>
+                <ul class="collapse list-unstyled ps-3" id="submenuInventarios">                   
+                    <li><a class="text-decoration-none" href="../pages/categoria.html">categorias</a></li>
+                    <li><a class="text-decoration-none" href="..//pages/subcategoria.html">Subcategorias</a></li>
+                    <li><a class="text-decoration-none" href="../pages/marca.html">Marca</a></li>                   
+                </ul>
+            </li>
+        </ul>
    
-
+    </div>
     <!-- Header -->
     <header class="main-header d-flex align-items-center justify-content-between">
         <a href="/pages/home.html" class="logo text-decoration-none">ElectroTech</a>
@@ -76,6 +73,7 @@
     <div class="menu-btn-container d-flex justify-content-start align-items-center">
         <button class="menu-btn" id="menuBtn"><i class="fas fa-angle-right"></i></button>
     </div>
+
 
     <div class="catalogo-container mt-4 container container-sm container-md container-lg container-xl container-xxl">
         <div class="row">
@@ -183,6 +181,7 @@
                
                 </div>
             </div>
+            
         </div>
         <!-- Contenedor 5: Paginación -->
         <div class="row mt-0 mb-4">
